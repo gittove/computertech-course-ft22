@@ -6,7 +6,7 @@ public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] float movementSpeed;
 
-    private Vector3 velocity;
+    private Vector3 torque;
     private Vector3 direction;
 
     Transform transform;
@@ -29,14 +29,14 @@ public class PlayerMovement : MonoBehaviour
     {
         Vector3 acceleration = Vector3.zero;
 
-        acceleration.x = direction.x * movementSpeed * Time.deltaTime;
-        acceleration.z = direction.z * movementSpeed * Time.deltaTime;
+        float yawRotation = direction.x * movementSpeed * Time.deltaTime;
+        //acceleration.z = direction.z * movementSpeed * Time.deltaTime;
 
-        velocity += transform.forward;
+        torque += new Vector3(0.0f, yawRotation, 0.0f);
     }
 
     private void Move()
     {
-        transform.localPosition += velocity;
+        transform.localRotation = Quaternion.Euler(torque);
     }
 }
