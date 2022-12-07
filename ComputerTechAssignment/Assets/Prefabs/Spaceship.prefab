@@ -9,8 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3793856899001342804}
-  - component: {fileID: 3793856899001342803}
   - component: {fileID: 3793856899001342802}
+  - component: {fileID: 3793856899001342803}
+  - component: {fileID: 7359221150204535722}
   m_Layer: 0
   m_Name: Spaceship
   m_TagString: Untagged
@@ -34,6 +35,27 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3793856899001342802
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3793856899001342805}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d69821a99b991bb44b6cd1f9a0221939, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  movementSpeed: 10
+  velocity:
+    x: 0
+    y: 0
+    z: 0
+  direction:
+    x: 0
+    y: 0
+    z: 0
 --- !u!114 &3793856899001342803
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -47,7 +69,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 0
---- !u!114 &3793856899001342802
+--- !u!114 &7359221150204535722
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -56,14 +78,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 3793856899001342805}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d69821a99b991bb44b6cd1f9a0221939, type: 3}
+  m_Script: {fileID: 11500000, guid: 1f28c5a32a2bb334bb6e206cea6ade05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 5
-  velocity: {x: 0, y: 0, z: 0}
-  direction: {x: 0, y: 0, z: 0}
-  rotationSpeed: 0
-  torque: {x: 0, y: 0, z: 0}
 --- !u!1 &3793856900055492816
 GameObject:
   m_ObjectHideFlags: 0
