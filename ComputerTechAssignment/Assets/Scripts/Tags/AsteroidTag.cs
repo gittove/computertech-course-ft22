@@ -1,6 +1,7 @@
 using Unity.Entities;
 
 [GenerateAuthoringComponent]
-public struct CameraTag : IComponentData
+public class AsteroidTag : IComponentData
 {
+    
 }

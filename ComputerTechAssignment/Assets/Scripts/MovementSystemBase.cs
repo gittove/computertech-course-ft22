@@ -9,7 +9,7 @@ public partial class MovementSystemBase : SystemBase
     {
         float deltaTime = Time.DeltaTime;
 
-        Entities.ForEach((ref Translation t, in MovementComponent movementData) => 
+        Entities.WithoutBurst().ForEach((Transform transform, ref Translation t, in MovementComponent movementData) => 
         {
             float acceleration_right = movementData.direction.x * movementData.movementSpeed * deltaTime;
             float acceleration_forward = movementData.direction.z * movementData.movementSpeed * deltaTime;
@@ -19,6 +19,7 @@ public partial class MovementSystemBase : SystemBase
             acceleration.z = acceleration_forward;
 
             t.Value.xyz += acceleration;
-        }).Schedule();
+            transform.localPosition = t.Value;
+        }).Run();
     }
 }
