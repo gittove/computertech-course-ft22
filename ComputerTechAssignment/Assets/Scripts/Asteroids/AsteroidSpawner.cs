@@ -61,4 +61,10 @@ public class AsteroidSpawner : MonoBehaviour
         spawnPosition.y = transform.position.y;
         spawnPosition.z = Random.Range(transform.position.z - spawnRadiusMetres, transform.position.z + spawnRadiusMetres);
     }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = new Color(1.0f, 0.0f, 0.0f);
+        Gizmos.DrawWireCube(this.transform.position, new Vector3(spawnRadiusMetres, 1.0f, spawnRadiusMetres));
+    }
 }
