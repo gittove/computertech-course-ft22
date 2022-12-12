@@ -34,6 +34,7 @@ public class AsteroidSpawner : MonoBehaviour
         if (spawnTimer >= SpawnIntervalInSeconds)
         {
             SpawnAsteroid();
+            spawnTimer = 0.0f;
         }
     }
     void FollowPlayer()
@@ -51,6 +52,7 @@ public class AsteroidSpawner : MonoBehaviour
     {
         GetRandomPositionInSpawnRadius();
 
+        Instantiate(asteroidPrefabs[0]);
         // TODO instantiate asteroid
         // TODO convert asteroid to entity
     }
@@ -62,9 +64,9 @@ public class AsteroidSpawner : MonoBehaviour
         spawnPosition.z = Random.Range(transform.position.z - spawnRadiusMetres, transform.position.z + spawnRadiusMetres);
     }
 
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = new Color(1.0f, 0.0f, 0.0f);
-        Gizmos.DrawWireCube(this.transform.position, new Vector3(spawnRadiusMetres, 1.0f, spawnRadiusMetres));
-    }
+    //private void OnDrawGizmos()
+    //{
+    //    Gizmos.color = new Color(1.0f, 0.0f, 0.0f);
+    //    Gizmos.DrawWireCube(this.transform.position, new Vector3(spawnRadiusMetres, 1.0f, spawnRadiusMetres));
+    //}
 }
