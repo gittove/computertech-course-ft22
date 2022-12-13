@@ -1,14 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using Unity.Entities;
 using Unity.Transforms;
 using Unity.Mathematics;
 using Unity.Jobs;
-using Unity.Burst;
 using System.Diagnostics;
-using Unity.Collections;
-
+using UnityEngine;
 
 public partial class AsteroidSpawnSystem : SystemBase
 {
@@ -18,10 +13,7 @@ public partial class AsteroidSpawnSystem : SystemBase
 
     private Entity prefab;
 
-    //private int spawnRadius;
-
-    private float spawnTimer;
-    private float spawnInterval;
+    private float lastSpawnTime;
 
     protected override void OnCreate()
     {
@@ -43,23 +35,35 @@ public partial class AsteroidSpawnSystem : SystemBase
         var asteroidPrefab = prefab;
         var rand = new Unity.Mathematics.Random((uint)Stopwatch.GetTimestamp());
 
-        spawnInterval = GetSingleton<AsteroidAuthoringComponent>().spawnIntervalSeconds;
+        float spawnInterval = GetSingleton<AsteroidAuthoringComponent>().spawnIntervalSeconds;
         int spawnRadius = GetSingleton<AsteroidAuthoringComponent>().spawnRadiusMeters;
 
-        float deltaTime = Time.DeltaTime;
+        float time = UnityEngine.Time.time;
+        float diff = time - lastSpawnTime;
+
+        if (diff <= spawnInterval)
+        {
+            return;
+        }
+
+        lastSpawnTime = UnityEngine.Time.time;
+
+        float3 spawnerPosition = new float3(0.0f, 0.0f, 0.0f);
+        Entities.WithoutBurst().ForEach((Transform transform, in AsteroidAuthoringComponent comp) =>
+        {
+            spawnerPosition = transform.position;
+        }).Run();
 
         Job.WithCode(() =>
         {
-           float3 playerPosition = new float3(0.0f, 0.0f, 0.0f);
+            float3 spawnPosition;
+            spawnPosition.x = rand.NextFloat(spawnerPosition.x - spawnRadius, spawnerPosition.x + spawnRadius);
+            spawnPosition.y = spawnerPosition.y;
+            spawnPosition.z = rand.NextFloat(spawnerPosition.z - spawnRadius, spawnerPosition.z + spawnRadius);
+            Translation pos = new Translation { Value = new float3(spawnPosition) };
 
-           float3 spawnPosition;
-           spawnPosition.x = rand.NextFloat(playerPosition.x - spawnRadius, playerPosition.x + spawnRadius);
-           spawnPosition.y = playerPosition.y;
-           spawnPosition.z = rand.NextFloat(playerPosition.z - spawnRadius, playerPosition.z + spawnRadius);
-           Translation pos = new Translation { Value = new float3(spawnPosition) };
-
-           var e = commandBuffer.Instantiate(asteroidPrefab);
-           commandBuffer.SetComponent(e, pos);
+            var e = commandBuffer.Instantiate(asteroidPrefab);
+            commandBuffer.SetComponent(e, pos);
 
             var MovementComp = new MovementComponent { movementSpeed = 2 };
             MovementComp.direction = new float3(0, -1, 0);

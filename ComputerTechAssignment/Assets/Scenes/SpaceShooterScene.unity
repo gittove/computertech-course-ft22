@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 445613080}
   - component: {fileID: 445613082}
   - component: {fileID: 445613083}
+  - component: {fileID: 445613084}
   m_Layer: 0
   m_Name: Spawner
   m_TagString: Untagged
@@ -169,8 +170,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e100bc27a091b584888aa43078261ba5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  forwardOffset: 30
-  upOffset: 15
   spawnRadiusMeters: 15
   spawnIntervalSeconds: 2
   prefab: {fileID: 2335789381926432974, guid: 5d008ae15c8d0814099599b5b8fee822, type: 3}
@@ -186,7 +185,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea7d7495833204790ba1d3a8755397f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ConversionMode: 0
+  ConversionMode: 1
+--- !u!114 &445613084
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 445613079}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a747e5bba40eed4f84c8aa34f04d008, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  forwardOffset: 40
+  upOffset: 15
+  player: {fileID: 1708821233}
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -517,6 +531,11 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1660484889}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1708821233 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3793856899001342805, guid: b0b3538a2348f0548a0e5e2e2f52c77f, type: 3}
+  m_PrefabInstance: {fileID: 3793856898877691567}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &3793856898877691567
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -524,6 +543,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3709170448793668191, guid: b0b3538a2348f0548a0e5e2e2f52c77f, type: 3}
+      propertyPath: movementSpeed
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3709170448793668191, guid: b0b3538a2348f0548a0e5e2e2f52c77f, type: 3}
+      propertyPath: rotationSpeed
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 3793856899001342804, guid: b0b3538a2348f0548a0e5e2e2f52c77f, type: 3}
       propertyPath: m_RootOrder
       value: 2

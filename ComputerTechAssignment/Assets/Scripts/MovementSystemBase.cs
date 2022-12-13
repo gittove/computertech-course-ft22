@@ -21,7 +21,6 @@ public partial class MovementSystemBase : SystemBase
             acceleration.z = acceleration_forward;
 
             t.Value.xyz += acceleration;
-            //transform.localPosition = t.Value;
         }).Run();
     }
 }
