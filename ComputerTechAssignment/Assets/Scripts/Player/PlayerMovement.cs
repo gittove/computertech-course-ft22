@@ -33,6 +33,7 @@ public class PlayerMovement : MonoBehaviour
 
         float yawRotation = direction.x * rotationSpeed * Time.deltaTime;
         acceleration = transform.forward * (direction.y * movementSpeed * Time.deltaTime);
+        acceleration += transform.right * (direction.x * movementSpeed * Time.deltaTime);
 
         torque += new Vector3(0.0f, yawRotation, 0.0f);
         velocity = acceleration;
@@ -40,7 +41,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Move()
     {
-        transform.localRotation = Quaternion.Euler(torque);
+        //transform.localRotation = Quaternion.Euler(torque);
         transform.localPosition += velocity;
     }
 }
