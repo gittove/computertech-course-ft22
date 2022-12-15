@@ -5,6 +5,7 @@ using Unity.Mathematics;
 
 public partial class MovementSystemBase : SystemBase
 {
+    bool internalTest;
     protected override void OnUpdate()
     {
         float deltaTime = Time.DeltaTime;

@@ -4,7 +4,8 @@ using UnityEngine;
 using Unity.Entities;
 
 [GenerateAuthoringComponent]
-public struct TestComponent : IComponentData
+public struct AABBComponent : IComponentData
 {
-    public int testint;
+    public float height;
+    public float width;
 }

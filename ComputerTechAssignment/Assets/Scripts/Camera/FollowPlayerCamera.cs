@@ -27,7 +27,7 @@ public class FollowPlayerCamera : MonoBehaviour
     {
         bRightMouseIsClicked = Input.GetMouseButton(1);
 
-        LookAround();
+        //LookAround();
         LerpToNewPosition();
     }
 
