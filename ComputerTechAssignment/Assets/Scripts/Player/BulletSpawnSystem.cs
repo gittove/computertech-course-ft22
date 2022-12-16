@@ -48,7 +48,16 @@ public partial class BulletSpawnSystem : SystemBase
             nextTime += (1 / perSecond);
         }
 
-        Entities.WithAll<PlayerTag>().ForEach((Entity entity, int entityInQueryIndex, in Translation translation, in Rotation rotation,
+        float3 playerPosition = new float3(0, 0, 0);
+        quaternion playerRotation = new quaternion(0, 0, 0, 0);
+
+        Entities.WithAll<PlayerTag>().WithoutBurst().ForEach((Transform transform) =>
+        {
+            playerPosition = new float3(transform.position.x, transform.position.y, transform.position.z);
+            playerRotation = new quaternion(transform.rotation.x, transform.rotation.y, transform.rotation.z, transform.rotation.w);
+        }).Run();
+
+        Entities.WithAll<PlayerTag>().ForEach((Entity entity, int entityInQueryIndex, in Rotation rotation,
             in BulletSpawnOffsetComponent bulletOffset) =>
         {
             if (shoot != 1 || !canShoot)
@@ -58,12 +67,12 @@ public partial class BulletSpawnSystem : SystemBase
 
             var bulletEntity = commandBuffer.Instantiate(entityInQueryIndex, bulletprefab);
 
-            var newPosition = new Translation { Value = translation.Value + math.mul(rotation.Value, bulletOffset.Value).xyz };
+            var newPosition = new Translation { Value = playerPosition + math.mul(playerRotation, bulletOffset.Value).xyz };
             commandBuffer.SetComponent(entityInQueryIndex, bulletEntity, newPosition);
 
             var movement = new MovementComponent { direction = new float3(0, 0, 1) * math.mul(rotation.Value, new float3(0, 0, 1)).xyz };
             movement.movementSpeed = 10;
-            commandBuffer.SetComponent(entityInQueryIndex, bulletEntity, movement);
+            commandBuffer.AddComponent(entityInQueryIndex, bulletEntity, movement);
         }).ScheduleParallel();
 
         BeginSimECB.AddJobHandleForProducer(Dependency);

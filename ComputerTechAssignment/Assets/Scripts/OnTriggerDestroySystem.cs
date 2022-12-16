@@ -1,12 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Unity.Entities;
-using Unity.Collections;
 using Unity.Jobs;
 using Unity.Physics.Stateful;
 using Unity.Rendering;
 
+[UpdateInGroup(typeof(FixedStepSimulationSystemGroup))]
+[UpdateAfter(typeof(StatefulTriggerEventBufferSystem))]
 public partial class OnTriggerDestroySystem : SystemBase
 {
     private EndFixedStepSimulationEntityCommandBufferSystem m_CommandBufferSystem;
@@ -33,7 +32,6 @@ public partial class OnTriggerDestroySystem : SystemBase
         var nonTriggerMask = m_NonTriggerMask;
 
         Entities
-            .WithName("DestroyOnTriggerEnter")
             .WithoutBurst()
             .ForEach((Entity e, ref DynamicBuffer<StatefulTriggerEvent> triggerEventBuffer) =>
             {
@@ -42,10 +40,10 @@ public partial class OnTriggerDestroySystem : SystemBase
                     var triggerEvent = triggerEventBuffer[i];
                     var otherEntity = triggerEvent.GetOtherEntity(e);
 
-                    if (triggerEvent.State == StatefulEventState.Stay || !nonTriggerMask.Matches(otherEntity))
-                    {
-                        continue;
-                    }
+                    //if (triggerEvent.State == StatefulEventState.Stay || !nonTriggerMask.Matches(otherEntity))
+                    //{
+                    //    continue;
+                    //}
 
                     if (triggerEvent.State == StatefulEventState.Enter)
                     {
@@ -54,10 +52,8 @@ public partial class OnTriggerDestroySystem : SystemBase
                         overlappingRenderMesh.material = volumeRenderMesh.material;
 
                         commandBuffer.SetSharedComponent(otherEntity, overlappingRenderMesh);
-                    }
-                    
-                    else
-                    {
+
+                        Debug.Log("destroy");
                         commandBuffer.AddComponent(otherEntity, new DestroyTag { });
                     }
                 }

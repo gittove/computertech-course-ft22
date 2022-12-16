@@ -1,8 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using Unity.Entities;
 
-public class AsteroidSpawnComponent : MonoBehaviour
+[GenerateAuthoringComponent]
+public struct AsteroidSpawnComponent : IComponentData
 {
     public float spawnInterval;
     public float lastSpawnTime;
