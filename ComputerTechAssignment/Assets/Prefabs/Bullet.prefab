@@ -258,7 +258,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   age: 0
-  maxAge: 5
+  maxAge: 3
 --- !u!114 &5154908484997237068
 MonoBehaviour:
   m_ObjectHideFlags: 0

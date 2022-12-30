@@ -3,6 +3,8 @@ using Unity.Entities;
 [GenerateAuthoringComponent]
 public struct AsteroidSpawnComponent : IComponentData
 {
-    public float spawnInterval;
-    public float lastSpawnTime;
+    public int spawnRadiusMeters;
+    public float spawnIntervalSeconds;
+
+    public Entity prefab;
 }

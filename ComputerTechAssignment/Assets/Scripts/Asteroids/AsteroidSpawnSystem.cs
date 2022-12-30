@@ -26,7 +26,7 @@ public partial class AsteroidSpawnSystem : SystemBase
     {
         if (prefab == Entity.Null)
         {
-            prefab = GetSingleton<AsteroidAuthoringComponent>().prefab;
+            prefab = GetSingleton<AsteroidSpawnComponent>().prefab;
             return;
         }
 
@@ -35,8 +35,8 @@ public partial class AsteroidSpawnSystem : SystemBase
         var asteroidPrefab = prefab;
         var rand = new Unity.Mathematics.Random((uint)Stopwatch.GetTimestamp());
 
-        float spawnInterval = GetSingleton<AsteroidAuthoringComponent>().spawnIntervalSeconds;
-        int spawnRadius = GetSingleton<AsteroidAuthoringComponent>().spawnRadiusMeters;
+        float spawnInterval = GetSingleton<AsteroidSpawnComponent>().spawnIntervalSeconds;
+        int spawnRadius = GetSingleton<AsteroidSpawnComponent>().spawnRadiusMeters;
 
         float time = UnityEngine.Time.time;
         float diff = time - lastSpawnTime;
@@ -49,7 +49,7 @@ public partial class AsteroidSpawnSystem : SystemBase
         lastSpawnTime = UnityEngine.Time.time;
 
         float3 spawnerPosition = new float3(0.0f, 0.0f, 0.0f);
-        Entities.WithoutBurst().ForEach((Transform transform, in AsteroidAuthoringComponent comp) =>
+        Entities.WithoutBurst().ForEach((Transform transform, in AsteroidSpawnComponent comp) =>
         {
             spawnerPosition = transform.position;
         }).Run();
