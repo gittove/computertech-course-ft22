@@ -15,6 +15,9 @@ I decided to run the camera and player behavior in MonoBehaviour, because there 
 ## how to play!!!!
 
 Right click and mouse - rotate around
+
 WASD - move around
+
 Space - shoot bullets
+
 ESC - exit application
