@@ -390,6 +390,10 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 1708821233}
+    - target: {fileID: 3399692205232875781, guid: f456d2ff2d888624b8958b587c163cb0, type: 3}
+      propertyPath: spawnIntervalSeconds
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3399692205232875783, guid: f456d2ff2d888624b8958b587c163cb0, type: 3}
       propertyPath: m_RootOrder
       value: 3

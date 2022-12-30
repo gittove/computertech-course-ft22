@@ -14,9 +14,10 @@ public class FollowPlayerCamera : MonoBehaviour
     private float cameraPitchVelocity;
     private float cameraYawVelocity;
 
-    private Transform transform;
+    private new Transform transform;
     private Transform playerTransform;
     private bool bRightMouseIsClicked;
+
     void Start()
     {
         transform = GetComponent<Transform>();
@@ -26,21 +27,24 @@ public class FollowPlayerCamera : MonoBehaviour
     void Update()
     {
         bRightMouseIsClicked = Input.GetMouseButton(1);
-
-        //LookAround();
-        LerpToNewPosition();
+        FollowPlayer();
     }
 
-    void LerpToNewPosition()
+    void FollowPlayer()
     {
         Vector3 yOffset = playerTransform.up * cameraPositionOffset.y;
         Vector3 zOffset = playerTransform.forward * cameraPositionOffset.z;
         Vector3 targetPosition = playerTransform.position + zOffset + yOffset;
-        transform.localPosition = targetPosition; // Vector3.Lerp(transform.localPosition, targetPosition, followSpeed);
+        transform.localPosition = targetPosition;
+
+        Quaternion playerRotation = playerTransform.rotation;
+        transform.localRotation = playerTransform.rotation;
     }
 
+    // this doesn't work as planned lel, ignore this!
     void LookAround()
     {
+        
         if (bRightMouseIsClicked)
         {
             return;
@@ -65,15 +69,5 @@ public class FollowPlayerCamera : MonoBehaviour
         //}
 
         transform.localRotation = Quaternion.Euler(newRot);
-    }
-
-    void RotateAround()
-    {
-        if (!bRightMouseIsClicked)
-        {
-            return;
-        }
-
-
     }
 }

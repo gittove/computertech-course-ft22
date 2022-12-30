@@ -10,7 +10,7 @@ public partial class BulletSpawnSystem : SystemBase
     private Entity bulletPrefab;
 
     private float perSecond = 10.0f;
-    private float nextTime = 0.0f;
+    private float nextTime = 0.3f;
 
     protected override void OnCreate()
     {
@@ -49,11 +49,13 @@ public partial class BulletSpawnSystem : SystemBase
         }
 
         float3 playerPosition = new float3(0, 0, 0);
+        float3 playerForward = new float3(0, 0, 0);
         quaternion playerRotation = new quaternion(0, 0, 0, 0);
 
         Entities.WithAll<PlayerTag>().WithoutBurst().ForEach((Transform transform) =>
         {
             playerPosition = new float3(transform.position.x, transform.position.y, transform.position.z);
+            playerForward = new float3(transform.forward.x, transform.forward.y, transform.forward.z);
             playerRotation = new quaternion(transform.rotation.x, transform.rotation.y, transform.rotation.z, transform.rotation.w);
         }).Run();
 
@@ -70,8 +72,8 @@ public partial class BulletSpawnSystem : SystemBase
             var newPosition = new Translation { Value = playerPosition + math.mul(playerRotation, bulletOffset.Value).xyz };
             commandBuffer.SetComponent(entityInQueryIndex, bulletEntity, newPosition);
 
-            var movement = new MovementComponent { direction = new float3(0, 0, 1) * math.mul(rotation.Value, new float3(0, 0, 1)).xyz };
-            movement.movementSpeed = 10;
+            var movement = new MovementComponent { direction = playerForward };
+            movement.movementSpeed = 100;
             commandBuffer.AddComponent(entityInQueryIndex, bulletEntity, movement);
         }).ScheduleParallel();
 
