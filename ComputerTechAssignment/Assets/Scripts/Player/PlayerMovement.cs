@@ -30,6 +30,13 @@ public class PlayerMovement : MonoBehaviour
         CalculateMove();
         CalculateRotation();
         Move();
+
+
+        // well, because i'm not a monster.
+        if (Input.GetKey(KeyCode.Escape))
+        {
+            Application.Quit();
+        }
     }
 
     private void CalculateMove()
